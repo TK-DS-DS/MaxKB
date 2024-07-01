@@ -37,7 +37,7 @@
                   shadow="hover"
                   :title="item.title || '-'"
                   :description="item.content"
-                  class="document-card layout-bg layout-bg cursor "
+                  class="document-card layout-bg layout-bg cursor"
                   :class="item.is_active ? '' : 'disabled'"
                   :showIcon="false"
                   @click="editParagraph(item)"
@@ -133,6 +133,7 @@
                 :max="cloneForm.search_mode === 'blend' ? 2 : 1"
                 :precision="3"
                 :step="0.1"
+                :value-on-clear="0"
                 controls-position="right"
                 class="w-full"
               />
@@ -197,6 +198,7 @@ import emptyImg from '@/assets/hit-test-empty.png'
 
 const route = useRoute()
 const {
+  meta: { activeMenu },
   params: { id }
 } = route as any
 
@@ -222,12 +224,10 @@ const questionTitle = ref('')
 const isDisabledChart = computed(() => !inputValue.value)
 
 const isApplication = computed(() => {
-  const { meta } = route as any
-  return meta?.activeMenu.includes('application')
+  return activeMenu.includes('application')
 })
 const isDataset = computed(() => {
-  const { meta } = route as any
-  return meta?.activeMenu.includes('dataset')
+  return activeMenu.includes('dataset')
 })
 
 function changeHandle(val: string) {
